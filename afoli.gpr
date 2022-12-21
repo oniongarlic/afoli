@@ -1,0 +1,8 @@
+with "aws";
+with "gnatcoll";
+
+project AFoli is
+  for Main use ("afoli.adb");
+  for Source_Dirs use (".");
+  for Object_Dir use ".";
+end AFoli;
