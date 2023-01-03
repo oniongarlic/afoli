@@ -47,17 +47,23 @@ procedure AFoli is
  procedure PrintArrivalData(Value : JSON_Value) is
   Line : Unbounded_String;
   ArrivalTime : Natural;
-  T : Ada.Calendar.Time;
+  DestArrivalTime : Natural;
+  Atime, DAtime : Ada.Calendar.Time;
  begin
   Line:=Value.Get("lineref");
   ArrivalTime:=Value.Get("expectedarrivaltime");
+  DestArrivalTime:=Value.Get("destinationaimedarrivaltime");
 
   Put(Line);
   Put(" ");
 
-  T:=Ada.Calendar.Time_Of (Year => 1970, Month => 1, Day => 1) + Duration(ArrivalTime);
+  -- XXX: Does not handle local timzone
+  Atime:=Ada.Calendar.Time_Of (Year => 1970, Month => 1, Day => 1) + Duration(ArrivalTime);
+  DAtime:=Ada.Calendar.Time_Of (Year => 1970, Month => 1, Day => 1) + Duration(DestArrivalTime);
 
-  Put(Ada.Calendar.Formatting.Image(T));
+  Put(Ada.Calendar.Formatting.Image(Atime));
+  Put(" - ");
+  Put(Ada.Calendar.Formatting.Image(DAtime));
 
   New_Line(1);  
  end PrintArrivalData;
