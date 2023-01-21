@@ -55,14 +55,14 @@ procedure AFoli is
   DestArrivalTime:=Value.Get("destinationaimedarrivaltime");
 
   Put(Line);
-  Put(" ");
+  Put("   ");
 
   -- XXX: Does not handle local timzone
   Atime:=Ada.Calendar.Time_Of (Year => 1970, Month => 1, Day => 1) + Duration(ArrivalTime);
   DAtime:=Ada.Calendar.Time_Of (Year => 1970, Month => 1, Day => 1) + Duration(DestArrivalTime);
 
   Put(Ada.Calendar.Formatting.Image(Atime));
-  Put(" - ");
+  Put("   -   ");
   Put(Ada.Calendar.Formatting.Image(DAtime));
 
   New_Line(1);  
@@ -80,8 +80,13 @@ procedure AFoli is
 
   if StopData.Status = "OK" then
    Stops := FoliData.Get("result");
+
+   Put("Line - Arrival    - At destination");
+   New_Line(1);  
+
    for I in 1 .. Length (Stops) loop
     Stop := Get(Stops, I);
+ 
     PrintArrivalData(Stop);
     -- Map_JSON_Object(Stop, StopDataCB'Access);
    end loop;
